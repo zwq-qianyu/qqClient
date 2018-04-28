@@ -22,19 +22,22 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
 
     //对整个JFrame进行卡片布局
     CardLayout cl;
-    public qqFriendsList(){
+
+    String owner;
+    public qqFriendsList(String ownerId){
+        this.owner = ownerId;
         //处理第一张卡片（好友列表）
-        jphy_jb1 = new JButton("我的好友");
-        jphy_jb2 = new JButton("陌生人");
+        jphy_jb1 = new JButton("特别关心");
+        jphy_jb2 = new JButton("我的好友");
         jphy_jb2.addActionListener(this);  //监听
-        jphy_jb3 = new JButton("黑名单");
+        jphy_jb3 = new JButton("陌生人");
         jphy_jb3.addActionListener(this);
         jphy1 = new JPanel(new BorderLayout());
 
-        //假设有50个好友
-        jphy2 = new JPanel((new GridLayout(50,1,4,4)));
-        //给jphy2初始化50个好友
-        JLabel []jlbs1 = new JLabel[50];
+        //假设有12个特别关心好友
+        jphy2 = new JPanel((new GridLayout(12,1,4,4)));
+        //给jphy2初始化1个特别关心好友
+        JLabel []jlbs1 = new JLabel[12];
         for(int i = 0;i < jlbs1.length;i++){
             jlbs1[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
             jlbs1[i].addMouseListener(this);
@@ -54,18 +57,18 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         jphy1.add(jphy3,"South");
 
 
-        /* 处理第二张卡片（陌生人）*/
-        jpmsr_jb1 = new JButton("我的好友");
+        /* 处理第二张卡片（我的好友）*/
+        jpmsr_jb1 = new JButton("特别关心");
         jpmsr_jb1.addActionListener(this);
-        jpmsr_jb2 = new JButton("陌生人");
-        jpmsr_jb3 = new JButton("黑名单");
+        jpmsr_jb2 = new JButton("我的好友");
+        jpmsr_jb3 = new JButton("陌生人");
         jpmsr_jb3.addActionListener(this);
         jpmsr1 = new JPanel(new BorderLayout());
 
-        //假设有20个陌生人
-        jpmsr2 = new JPanel((new GridLayout(20,1,4,4)));
-        //给jpmsr2初始化20个陌生人
-        JLabel []jlbs2 = new JLabel[20];
+        //假设有50个好友
+        jpmsr2 = new JPanel((new GridLayout(50,1,4,4)));
+        //给jpmsr2初始化20个好友
+        JLabel []jlbs2 = new JLabel[50];
         for(int i = 0;i < jlbs2.length;i++){
             jlbs2[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
             jlbs2[i].addMouseListener(this);
@@ -85,18 +88,18 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         jpmsr1.add(jpmsr_jb3,"South");
 
 
-        /* 处理第三张卡片（黑名单）*/
-        jphmd_jb1 = new JButton("我的好友");
+        /* 处理第三张卡片（陌生人）*/
+        jphmd_jb1 = new JButton("特别关心");
         jphmd_jb1.addActionListener(this);
-        jphmd_jb2 = new JButton("陌生人");
+        jphmd_jb2 = new JButton("我的好友");
         jphmd_jb2.addActionListener(this);
-        jphmd_jb3 = new JButton("黑名单");
+        jphmd_jb3 = new JButton("陌生人");
         jphmd1 = new JPanel(new BorderLayout());
 
-        //假设有5个黑名单人员
-        jphmd2 = new JPanel((new GridLayout(10,1,4,4)));
-        //给jphmd2初始化5个黑名单人员
-        JLabel []jlbs3 = new JLabel[5];
+        //假设有25个陌生人人员
+        jphmd2 = new JPanel((new GridLayout(25,1,4,4)));
+        //给jphmd2初始化5个陌生人人员
+        JLabel []jlbs3 = new JLabel[25];
         for(int i = 0;i < jlbs3.length;i++){
             jlbs3[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
             jlbs3[i].addMouseListener(this);
@@ -127,7 +130,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
 
         this.setVisible(true);
         this.setSize(200,400);
-        this.setTitle("在线");
+        this.setTitle(ownerId);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -149,7 +152,9 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
             //获取好友的姓名
             String friendName = ((JLabel)e.getSource()).getText();
             //System.out.println("你将和" + friendName + "聊天！");
-            new qqChat(friendName);
+            qqChat qc = new qqChat(owner,friendName);
+            Thread t = new Thread(qc);
+            t.start();
         }
     }
     public void mouseEntered(MouseEvent e){
@@ -168,6 +173,6 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
     }
 
     public static void main(String args[]){
-        qqFriendsList qqfl = new qqFriendsList();
+        //qqFriendsList qqfl = new qqFriendsList();
     }
 }

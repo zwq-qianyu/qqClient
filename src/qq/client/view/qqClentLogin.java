@@ -77,7 +77,7 @@ public class qqClentLogin extends JFrame implements ActionListener {
             u.setPasswd(new String(jp2_jpf.getPassword()));
 
             if(cu.checkUser(u)){
-                new qqFriendsList();
+                new qqFriendsList(u.getUserId());
                 //关闭登录界面
                 this.dispose();
             }
