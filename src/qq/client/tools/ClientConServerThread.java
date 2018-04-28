@@ -10,9 +10,7 @@ import java.net.Socket;
 import qq.client.view.*;
 
 public class ClientConServerThread extends Thread {
-    public Socket getS() {
-        return s;
-    }
+
 
     private Socket s;
 
@@ -25,16 +23,21 @@ public class ClientConServerThread extends Thread {
         while (true){
             //不停地读取从服务器端发来的消息
             try{
+                System.out.println("1111111");
                 ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
+                System.out.println("222222");
                 Message m = (Message)ois.readObject();
                 System.out.println("读取到消息" + m.getSender() + "给" + m.getGetter() + " 内容：" + m.getCon());
                 //把从服务器读来的消息，显示到该显示的聊天界面
-                qqChat qc = ManageQqChat.getQqChat(m.getSender()+" "+m.getGetter());
+                qqChat qc = ManageQqChat.getQqChat(m.getGetter()+" "+m.getSender());
                 //显示
                 qc.showMessage(m);
             }catch (Exception err){
                 err.printStackTrace();
             }
         }
+    }
+    public Socket getS() {
+        return s;
     }
 }

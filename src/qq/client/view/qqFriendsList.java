@@ -5,6 +5,7 @@ import qq.client.tools.ManageQqChat;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import qq.client.tools.*;
 
 public class qqFriendsList extends JFrame implements ActionListener,MouseListener {
     //处理第一张卡片
@@ -154,7 +155,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
             //获取好友的姓名
             String friendName = ((JLabel)e.getSource()).getText();
             //System.out.println("你将和" + friendName + "聊天！");
-            qqChat qc = new qqChat(owner,friendName);
+            qqChat qc = new qqChat(this.owner,friendName);
             //把聊天界面加入到管理类
             ManageQqChat.addQqChat(this.owner+" "+friendName, qc);
             /*

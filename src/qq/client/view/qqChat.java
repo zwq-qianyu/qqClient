@@ -49,6 +49,19 @@ public class qqChat extends JFrame implements ActionListener {
         //qqChat chat = new qqChat("mao");
     }
 
+    //写一个方法，让他显示消息
+    public void showMessage(Message m){
+        try{
+            String info = m.getSender() + "：" + m.getCon() + "\n\r";
+            System.out.println("写一个方法，让他显示消息 public void showMessage(Message m)");
+            this.jta.append(info);
+        }catch(Exception e){
+            System.out.println("出错了");
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void actionPerformed(ActionEvent action) {
         if(action.getSource()==jb){
@@ -59,7 +72,7 @@ public class qqChat extends JFrame implements ActionListener {
             ms.setCon(jtf.getText());
             ms.setSendTime(new java.util.Date().toString());
             //清空输入框
-            this.jtf.setText("");
+            //this.jtf.setText("");
 
             //显示信息
             String info = "                                                      " + "我：" + ms.getCon() + "\n\r";
@@ -67,21 +80,13 @@ public class qqChat extends JFrame implements ActionListener {
 
             //发送给服务器
             try{
-                ObjectOutputStream oos = new ObjectOutputStream(ManageClientConServerThread.getClientConServerThread(ownerId).getS().getOutputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(ManageClientConServerThread.getClientConServerThread(
+                        ownerId).getS().getOutputStream());
                 oos.writeObject(ms);
             }catch (Exception e){
                 e.printStackTrace();
-            }finally{
-
             }
-
         }
-    }
-
-    //写一个方法，让他显示消息
-    public void showMessage(Message m){
-        String info = m.getSender()+" 对 "+m.getGetter()+" 说 "+m.getCon()+"\r\n";
-        this.jta.append(info);
     }
 
     /*

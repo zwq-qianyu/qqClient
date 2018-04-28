@@ -33,17 +33,18 @@ public class ClientToServer {
                 //登陆成功就创建一个该QQ号和服务器保持通讯连接的线程
                 ClientConServerThread ccst = new ClientConServerThread(s);
                 //启动该通讯线程
+                ccst.start();
+
                 ManageClientConServerThread.addClientConServerThread(((User)o).getUserId(),ccst);
                 b = true;
+                System.out.print("登录成功");
             }
             else{
-
+                //关闭Socket
+                s.close();
             }
-                System.out.print("登录成功");
             }catch (Exception e){
                 e.printStackTrace();
-            }finally {
-
             }
         return b;
     }

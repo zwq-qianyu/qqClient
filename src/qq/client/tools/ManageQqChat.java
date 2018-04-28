@@ -3,7 +3,7 @@
  */
 package qq.client.tools;
 
-import java.util.HashMap;
+import java.util.*;
 import qq.client.view.*;
 
 public class ManageQqChat {
