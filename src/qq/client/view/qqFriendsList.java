@@ -1,5 +1,7 @@
 package qq.client.view;
 
+import qq.client.tools.ManageQqChat;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -153,8 +155,12 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
             String friendName = ((JLabel)e.getSource()).getText();
             //System.out.println("你将和" + friendName + "聊天！");
             qqChat qc = new qqChat(owner,friendName);
+            //把聊天界面加入到管理类
+            ManageQqChat.addQqChat(this.owner+" "+friendName, qc);
+            /*
             Thread t = new Thread(qc);
             t.start();
+            */
         }
     }
     public void mouseEntered(MouseEvent e){

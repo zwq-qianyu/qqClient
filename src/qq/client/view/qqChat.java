@@ -12,8 +12,9 @@ import java.awt.event.ActionListener;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import qq.client.back.*;
+import qq.client.tools.*;
 
-public class qqChat extends JFrame implements ActionListener,Runnable {
+public class qqChat extends JFrame implements ActionListener {
     //设置组件
     JTextField jtf;
     JTextArea jta;
@@ -66,7 +67,7 @@ public class qqChat extends JFrame implements ActionListener,Runnable {
 
             //发送给服务器
             try{
-                ObjectOutputStream oos = new ObjectOutputStream(ClientToServer.s.getOutputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(ManageClientConServerThread.getClientConServerThread(ownerId).getS().getOutputStream());
                 oos.writeObject(ms);
             }catch (Exception e){
                 e.printStackTrace();
@@ -77,6 +78,13 @@ public class qqChat extends JFrame implements ActionListener,Runnable {
         }
     }
 
+    //写一个方法，让他显示消息
+    public void showMessage(Message m){
+        String info = m.getSender()+" 对 "+m.getGetter()+" 说 "+m.getCon()+"\r\n";
+        this.jta.append(info);
+    }
+
+    /*
     @Override
     public void run() {
         while(true){
@@ -96,4 +104,5 @@ public class qqChat extends JFrame implements ActionListener,Runnable {
             }
         }
     }
+    */
 }

@@ -18,7 +18,7 @@ public class Message implements java.io.Serializable {     //将对象序列化�
         this.sender = sender;
     }
 
-    public String getGetter(String friendId) {
+    public String getGetter() {
         return getter;
     }
 

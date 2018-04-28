@@ -1,5 +1,10 @@
+/*
+* qq连接服务器的后台
+*/
 package qq.client.back;
 
+import qq.client.tools.ClientConServerThread;
+import qq.client.tools.ManageClientConServerThread;
 import qq.common.Message;
 
 import java.io.ObjectInputStream;
@@ -23,9 +28,17 @@ public class ClientToServer {
             ObjectInputStream ois = new ObjectInputStream(s.getInputStream());
             Message ms = (Message)ois.readObject();
 
-            //判断登录是否成功
-            if(ms.getMesType().equals("1"))
+            //判断登录是否成功（验证用户登陆）
+            if(ms.getMesType().equals("1")){
+                //登陆成功就创建一个该QQ号和服务器保持通讯连接的线程
+                ClientConServerThread ccst = new ClientConServerThread(s);
+                //启动该通讯线程
+                ManageClientConServerThread.addClientConServerThread(((User)o).getUserId(),ccst);
                 b = true;
+            }
+            else{
+
+            }
                 System.out.print("登录成功");
             }catch (Exception e){
                 e.printStackTrace();
