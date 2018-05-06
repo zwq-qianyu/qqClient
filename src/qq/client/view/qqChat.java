@@ -4,6 +4,7 @@
 
 package qq.client.view;
 
+import javafx.beans.binding.ObjectBinding;
 import qq.common.Message;
 
 import javax.swing.*;
@@ -74,7 +75,7 @@ public class qqChat extends JFrame implements ActionListener {
             ms.setCon(jtf.getText());
             ms.setSendTime(new java.util.Date().toString());
             //清空输入框
-            //this.jtf.setText("");
+            this.jtf.setText("");
 
             //显示信息
             String info = "                                                      " + "我：" + ms.getCon() + "\n\r";

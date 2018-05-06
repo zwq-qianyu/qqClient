@@ -5,8 +5,11 @@ import qq.client.tools.ManageQqChat;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.ObjectOutputStream;
+
 import qq.client.tools.*;
 import qq.common.Message;
+import qq.common.MessageType;
 
 public class qqFriendsList extends JFrame implements ActionListener,MouseListener {
     //处理第一张卡片
@@ -187,6 +190,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
 
     }
 
+    //添加新的在线好友
     public void updateFriendsList(Message m){
         //获取需要更新的好友列表信息
         String online_friends[] = m.getCon().split(" ");
@@ -211,6 +215,54 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
                 e.printStackTrace();
             }
         }
+    }
+
+    //变灰下线好友头像
+    public void updateFriendsList2(Message m){
+        //获取需要更新的好友列表信息
+        String offline_friend = m.getCon();
+        //尝试对特别关心列表进行更新
+        try {
+            jlbs1[Integer.parseInt(offline_friend)].setEnabled(false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //尝试对好友列表进行更新（有待修改，需要加上用户名的基数）
+        try {
+            jlbs3[Integer.parseInt(offline_friend)].setEnabled(false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        //尝试对黑名单列表进行更新（有待修改，需要加上用户名的基数）
+        try {
+            jlbs3[Integer.parseInt(offline_friend)].setEnabled(false);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    //退出时执行的操作Runtime类的addShutdownHook函数，参考：https://blog.csdn.net/qq7342272/article/details/6852734
+    //添加需要在应用程序结束前执行的操作，例如关闭网络连接，关闭数据库等等
+    //在这里我们向服务器发送一个下线操作
+    public void doShutDownWork() {
+        Runtime run=Runtime.getRuntime();//当前 Java 应用程序相关的运行时对象。
+        run.addShutdownHook(new Thread(){ //注册新的虚拟机来关闭钩子
+            @Override
+            public void run() {
+                //程序结束时进行的操作
+                Message ms = new Message();
+                ms.setSender(owner);
+                ms.setMesType(MessageType.message_off_line);   //客户结束时，发送给服务器下线通知
+                try{
+                    ObjectOutputStream oos = new ObjectOutputStream(ManageClientConServerThread.getClientConServerThread(
+                            owner).getS().getOutputStream());
+                    oos.writeObject(ms);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                System.out.println("程序结束调用");
+            }
+        });
     }
 
     public static void main(String args[]){

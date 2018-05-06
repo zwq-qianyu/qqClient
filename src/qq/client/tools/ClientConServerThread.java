@@ -21,6 +21,8 @@ public class ClientConServerThread extends Thread {
     }
 
     public void run(){
+        /*qqFriendsList qfl0 = ManageFriendList.getqqFriendsList(getter);
+        qfl0.doShutDownWork();*/
         while (true){
             //不停地读取从服务器端发来的消息
             try{
@@ -35,7 +37,19 @@ public class ClientConServerThread extends Thread {
                     //显示
                     qc.showMessage(m);
                 }
-                else if(m.getMesType().equals(MessageType.messag_ret_onlineFriends)){
+                else if(m.getMesType().equals(MessageType.message_ret_off_line)){
+                    //如果收到此类消息类型，表明有人下线了，将该好友的头像变成灰色
+                    System.out.println("客户端收到："+m.getCon()+" 的下线通知");
+                    //获取好友列表并整理
+                    String con = m.getCon();
+                    String getter = m.getGetter();   //获取getter的id号
+                    //修改相应的好友列表
+                    //qqFriendsList qfl = new qqFriendsList(getter);
+                    qqFriendsList qfl = ManageFriendList.getqqFriendsList(getter);//改用这种方式才不会出现每次更新后都新建一个好友列表
+                    //更新在线好友
+                    qfl.updateFriendsList2(m);
+                }
+                else if(m.getMesType().equals(MessageType.message_ret_onlineFriends)){
                     System.out.println("客户端收到："+m.getCon());
                     //获取好友列表并整理
                     String con = m.getCon();
@@ -44,7 +58,11 @@ public class ClientConServerThread extends Thread {
                     //修改相应的好友列表
                     //qqFriendsList qfl = new qqFriendsList(getter);
                     qqFriendsList qfl = ManageFriendList.getqqFriendsList(getter);//改用这种方式才不会出现每次更新后都新建一个好友列表
-
+                    try{
+                        qfl.doShutDownWork();
+                    }catch(Exception e){
+                        //e.printStackTrace();
+                    }
                     if(qfl != null){
                         //更新在线好友
                         qfl.updateFriendsList(m);
