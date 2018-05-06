@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import qq.client.back.*;
 import qq.client.tools.*;
+import qq.common.MessageType;
 
 public class qqChat extends JFrame implements ActionListener {
     //设置组件
@@ -68,6 +69,7 @@ public class qqChat extends JFrame implements ActionListener {
             //用户点击后发送
             Message ms = new Message();
             ms.setSender(this.ownerId);
+            ms.setMesType(MessageType.message_common_mes);
             ms.setGetter(this.friendId);
             ms.setCon(jtf.getText());
             ms.setSendTime(new java.util.Date().toString());

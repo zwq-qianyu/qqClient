@@ -5,8 +5,12 @@ import java.awt.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ObjectOutputStream;
+
 import qq.client.back.*;
+import qq.client.tools.ManageClientConServerThread;
 import qq.common.*;
+import qq.client.tools.*;
 
 public class qqClentLogin extends JFrame implements ActionListener {
     //定义北部需要的组件
@@ -77,7 +81,25 @@ public class qqClentLogin extends JFrame implements ActionListener {
             u.setPasswd(new String(jp2_jpf.getPassword()));
 
             if(cu.checkUser(u)){
-                new qqFriendsList(u.getUserId());
+                try{
+                    //创建好友列表一定要放在前面
+                    qqFriendsList qfl = new qqFriendsList(u.getUserId());  //如果密码正确或者为新注册用户，就打开好友列表
+                    ManageFriendList.addqqFriendsList(u.getUserId(),qfl);  //将用户列表添加进管理hm中
+
+                    //发一个请求在线好友的请求包
+                    ObjectOutputStream oos = new ObjectOutputStream
+                            (ManageClientConServerThread.getClientConServerThread(u.getUserId()).getS().getOutputStream());
+                    //做一个Message
+                    Message m = new Message();
+                    m.setMesType(Message.message_get_onlineFriends);
+
+                    //向服务器指明要的是这个qq号的在线好友列表
+                    m.setSender(u.getUserId());
+                    oos.writeObject(m);
+                }catch (Exception e2){
+                    e2.printStackTrace();
+                }
+
                 //关闭登录界面
                 this.dispose();
             }

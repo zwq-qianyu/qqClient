@@ -6,22 +6,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import qq.client.tools.*;
+import qq.common.Message;
 
 public class qqFriendsList extends JFrame implements ActionListener,MouseListener {
     //处理第一张卡片
     JPanel jphy1,jphy2,jphy3;
     JButton jphy_jb1,jphy_jb2,jphy_jb3;
     JScrollPane jsp1;
+    JLabel []jlbs1;
 
     //处理第二张卡片（陌生人）
     JPanel jpmsr1,jpmsr2,jpmsr3;
     JButton jpmsr_jb1,jpmsr_jb2,jpmsr_jb3;
     JScrollPane jsp2;
+    JLabel []jlbs2;
 
     //处理第三张卡片（陌生人）
     JPanel jphmd1,jphmd2,jphmd3;
     JButton jphmd_jb1,jphmd_jb2,jphmd_jb3;
     JScrollPane jsp3;
+    JLabel []jlbs3;
 
     //对整个JFrame进行卡片布局
     CardLayout cl;
@@ -40,9 +44,13 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         //假设有12个特别关心好友
         jphy2 = new JPanel((new GridLayout(12,1,4,4)));
         //给jphy2初始化1个特别关心好友
-        JLabel []jlbs1 = new JLabel[12];
+        jlbs1 = new JLabel[12];
         for(int i = 0;i < jlbs1.length;i++){
             jlbs1[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
+            jlbs1[i].setEnabled(false);
+            if(jlbs1[i].getText().equals(ownerId)){
+                jlbs1[i].setEnabled(true);
+            }
             jlbs1[i].addMouseListener(this);
             jphy2.add(jlbs1[i]);
         }
@@ -71,7 +79,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         //假设有50个好友
         jpmsr2 = new JPanel((new GridLayout(50,1,4,4)));
         //给jpmsr2初始化20个好友
-        JLabel []jlbs2 = new JLabel[50];
+        jlbs2 = new JLabel[50];
         for(int i = 0;i < jlbs2.length;i++){
             jlbs2[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
             jlbs2[i].addMouseListener(this);
@@ -102,7 +110,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         //假设有25个陌生人人员
         jphmd2 = new JPanel((new GridLayout(25,1,4,4)));
         //给jphmd2初始化5个陌生人人员
-        JLabel []jlbs3 = new JLabel[25];
+        jlbs3 = new JLabel[25];
         for(int i = 0;i < jlbs3.length;i++){
             jlbs3[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
             jlbs3[i].addMouseListener(this);
@@ -177,6 +185,32 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
     }
     public void mouseReleased(MouseEvent e){
 
+    }
+
+    public void updateFriendsList(Message m){
+        //获取需要更新的好友列表信息
+        String online_friends[] = m.getCon().split(" ");
+        //遍历进行状态更新
+        for(int i=0;i<online_friends.length;i++){
+            //尝试对特别关心列表进行更新
+            try {
+                jlbs1[Integer.parseInt(online_friends[i]) - 1].setEnabled(true);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            //尝试对好友列表进行更新（有待修改，需要加上用户名的基数）
+            try {
+                jlbs2[Integer.parseInt(online_friends[i]) - 1].setEnabled(true);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            //尝试对黑名单列表进行更新（有待修改，需要加上用户名的基数）
+            try {
+                jlbs3[Integer.parseInt(online_friends[i]) - 1].setEnabled(true);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void main(String args[]){

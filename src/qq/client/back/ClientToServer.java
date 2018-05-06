@@ -17,7 +17,7 @@ public class ClientToServer {
 
     //发送第一次请求，单独发送，因为后面都是发送message了
     public boolean sendLoginInfoToServer(Object o){
-        boolean b =false;
+        boolean b =false;  //用来判断是否连接成功
         try{
             s = new Socket("127.0.0.1",9000);
             //对象流传输
