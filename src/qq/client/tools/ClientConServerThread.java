@@ -10,6 +10,8 @@ import java.net.Socket;
 import qq.client.view.*;
 import qq.common.MessageType;
 
+import javax.swing.*;
+
 public class ClientConServerThread extends Thread {
 
 
@@ -67,6 +69,12 @@ public class ClientConServerThread extends Thread {
                         //更新在线好友
                         qfl.updateFriendsList(m);
                     }
+                }
+                else if(m.getMesType().equals(MessageType.message_to_all)){
+                    //把从服务器读来的消息，显示到所有用户的聊天界面
+                    System.out.println("客户端收到服务器端的通知："+m.getCon());
+                    String notify = "系统通知：" + m.getCon();
+                    JOptionPane.showMessageDialog(null,notify);
                 }
             }catch (Exception err){
                 err.printStackTrace();

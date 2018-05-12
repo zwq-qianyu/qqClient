@@ -18,4 +18,17 @@ public class ManageQqChat {
     public static qqChat getQqChat(String loginidAndFriendid){
         return (qqChat)hm.get(loginidAndFriendid);
     }
+
+    /*
+    //全部取出，收群发消息时需要使用
+    public static qqChat[] getAllQqChats(){
+        Set keys = hm.keySet();
+        Object[] allQqChats = keys.toArray();
+        qqChat allQqChatsAttay[] = null;
+        allQqChatsAttay = new qqChat[100];
+        for(int i =0; i<allQqChats.length;i++){
+            allQqChatsAttay[i] = (qqChat)allQqChats[i];
+        }
+        return allQqChatsAttay;
+    }*/
 }

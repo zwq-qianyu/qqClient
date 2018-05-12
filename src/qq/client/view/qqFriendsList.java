@@ -262,7 +262,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
                 }catch(Exception e){
                     e.printStackTrace();
                 }
-                System.out.println("程序结束调用");
+                System.out.println(owner + "程序结束调用");
             }
         });
     }

@@ -12,4 +12,5 @@ public interface MessageType {
     String message_ret_onlineFriends = "5";  //返回在线好友列表
     String message_off_line = "6";  //表明用户下线
     String message_ret_off_line = "7";  //返回下线用户列表
+    String message_to_all = "8";    //群发的消息
 }
