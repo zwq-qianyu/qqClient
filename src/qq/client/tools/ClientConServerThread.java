@@ -82,6 +82,8 @@ public class ClientConServerThread extends Thread {
                     }
                 }
             }catch (Exception err){
+                JOptionPane.showMessageDialog(null,"你已被强制下线！");
+                System.exit(0);
                 err.printStackTrace();
             }
         }

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1065a1b6-fccd-465d-8c93-0681bf531b5a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/qq/client/tools/ClientConServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/qq/client/tools/ClientConServerThread.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="ClientConServerThread.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/qq/client/tools/ClientConServerThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="73" column="42" selection-start-line="73" selection-start-column="42" selection-end-line="73" selection-end-column="42" />
+            <state relative-caret-position="324">
+              <caret line="85" column="31" lean-forward="true" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3379#3380#0" expanded="true" />
@@ -427,12 +426,12 @@
       <workItem from="1526021295669" duration="111000" />
       <workItem from="1526085983669" duration="1680000" />
       <workItem from="1526089346724" duration="9109000" />
-      <workItem from="1526103594418" duration="334000" />
+      <workItem from="1526103594418" duration="3190000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71442000" />
+    <option name="totallyTimeSpent" value="74298000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="722" extended-state="0" />
@@ -870,8 +869,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/qq/client/tools/ClientConServerThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="73" column="42" selection-start-line="73" selection-start-column="42" selection-end-line="73" selection-end-column="42" />
+        <state relative-caret-position="324">
+          <caret line="85" column="31" lean-forward="true" selection-start-line="85" selection-start-column="31" selection-end-line="85" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3379#3380#0" expanded="true" />
