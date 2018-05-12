@@ -39,6 +39,12 @@ public class ClientConServerThread extends Thread {
                     //显示
                     qc.showMessage(m);
                 }
+                else if(m.getMesType().equals(MessageType.message_group_chat)){
+                    //把从服务器读来的消息，显示到群聊界面
+                    groupChat gc = ManageGroupChat.getGroupChat(m.getGetter());
+                    //显示消息
+                    gc.showMessage(m);
+                }
                 else if(m.getMesType().equals(MessageType.message_ret_off_line)){
                     //如果收到此类消息类型，表明有人下线了，将该好友的头像变成灰色
                     System.out.println("客户端收到："+m.getCon()+" 的下线通知");

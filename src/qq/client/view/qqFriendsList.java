@@ -126,7 +126,9 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         else if(e.getSource()==jphy_jb3||e.getSource()==jpmsr_jb3){
             //新建一个群聊窗口
             System.out.println("你将进行群聊！");
-            groupChat gc = new groupChat();
+            groupChat gc = new groupChat(this.owner);
+            //把群聊界面添加到管理的类中
+            ManageGroupChat.addGroupChat(this.owner,gc);
         }
     }
 
