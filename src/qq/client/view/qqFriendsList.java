@@ -223,19 +223,21 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         String offline_friend = m.getCon();
         //尝试对特别关心列表进行更新
         try {
-            jlbs1[Integer.parseInt(offline_friend)].setEnabled(false);
+
+            jlbs1[Integer.parseInt(offline_friend)-1].setEnabled(false);            //此处一定要记得减1，不然效果错乱
+            System.out.println(Integer.parseInt(offline_friend) + "头像成功变灰！！！");
         }catch (Exception e){
             e.printStackTrace();
         }
         //尝试对好友列表进行更新（有待修改，需要加上用户名的基数）
         try {
-            jlbs3[Integer.parseInt(offline_friend)].setEnabled(false);
+            jlbs3[Integer.parseInt(offline_friend)-1].setEnabled(false);
         }catch (Exception e){
             e.printStackTrace();
         }
         //尝试对黑名单列表进行更新（有待修改，需要加上用户名的基数）
         try {
-            jlbs3[Integer.parseInt(offline_friend)].setEnabled(false);
+            jlbs3[Integer.parseInt(offline_friend)-1].setEnabled(false);
         }catch (Exception e){
             e.printStackTrace();
         }
