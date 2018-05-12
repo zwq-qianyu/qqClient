@@ -71,10 +71,15 @@ public class ClientConServerThread extends Thread {
                     }
                 }
                 else if(m.getMesType().equals(MessageType.message_to_all)){
-                    //把从服务器读来的消息，显示到所有用户的聊天界面
-                    System.out.println("客户端收到服务器端的通知："+m.getCon());
-                    String notify = "系统通知：" + m.getCon();
-                    JOptionPane.showMessageDialog(null,notify);
+                    if(m.getCon().equals("\n\r")){
+                        System.out.println("空通知！");
+                    }
+                    else{
+                        //把从服务器读来的消息，显示到所有用户的聊天界面
+                        System.out.println("客户端收到服务器端的通知："+m.getCon());
+                        String notify = "系统通知：" + m.getCon();
+                        JOptionPane.showMessageDialog(null,notify);
+                    }
                 }
             }catch (Exception err){
                 err.printStackTrace();
