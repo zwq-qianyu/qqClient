@@ -13,6 +13,10 @@ import java.net.Socket;
 import qq.common.*;
 
 public class ClientToServer {
+    public Socket getS() {
+        return s;
+    }
+
     public Socket s;
 
     //发送第一次请求，单独发送，因为后面都是发送message了

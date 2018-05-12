@@ -42,7 +42,6 @@ public class qqChat extends JFrame implements ActionListener {
         this.add(jta,"Center");
         this.add(jp,"South");
         this.setTitle(owner+" 正在和 "+friend+"聊天。。。");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(300,200);
         this.setVisible(true);
     }

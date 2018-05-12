@@ -24,11 +24,8 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
     JScrollPane jsp2;
     JLabel []jlbs2;
 
-    //处理第三张卡片（陌生人）
-    JPanel jphmd1,jphmd2,jphmd3;
-    JButton jphmd_jb1,jphmd_jb2,jphmd_jb3;
-    JScrollPane jsp3;
-    JLabel []jlbs3;
+    //选择群聊按钮
+    JButton jb_qun;
 
     //对整个JFrame进行卡片布局
     CardLayout cl;
@@ -37,10 +34,10 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
     public qqFriendsList(String ownerId){
         this.owner = ownerId;
         //处理第一张卡片（好友列表）
-        jphy_jb1 = new JButton("特别关心");
-        jphy_jb2 = new JButton("我的好友");
+        jphy_jb1 = new JButton("我的好友");
+        jphy_jb2 = new JButton("陌生人");
         jphy_jb2.addActionListener(this);  //监听
-        jphy_jb3 = new JButton("陌生人");
+        jphy_jb3 = new JButton("群聊");
         jphy_jb3.addActionListener(this);
         jphy1 = new JPanel(new BorderLayout());
 
@@ -72,10 +69,10 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
 
 
         /* 处理第二张卡片（我的好友）*/
-        jpmsr_jb1 = new JButton("特别关心");
+        jpmsr_jb1 = new JButton("我的好友");
         jpmsr_jb1.addActionListener(this);
-        jpmsr_jb2 = new JButton("我的好友");
-        jpmsr_jb3 = new JButton("陌生人");
+        jpmsr_jb2 = new JButton("陌生人");
+        jpmsr_jb3 = new JButton("群聊");
         jpmsr_jb3.addActionListener(this);
         jpmsr1 = new JPanel(new BorderLayout());
 
@@ -102,37 +99,8 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         jpmsr1.add(jpmsr_jb3,"South");
 
 
-        /* 处理第三张卡片（陌生人）*/
-        jphmd_jb1 = new JButton("特别关心");
-        jphmd_jb1.addActionListener(this);
-        jphmd_jb2 = new JButton("我的好友");
-        jphmd_jb2.addActionListener(this);
-        jphmd_jb3 = new JButton("陌生人");
-        jphmd1 = new JPanel(new BorderLayout());
-
-        //假设有25个陌生人人员
-        jphmd2 = new JPanel((new GridLayout(25,1,4,4)));
-        //给jphmd2初始化5个陌生人人员
-        jlbs3 = new JLabel[25];
-        for(int i = 0;i < jlbs3.length;i++){
-            jlbs3[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
-            jlbs3[i].addMouseListener(this);
-            jphmd2.add(jlbs3[i]);
-        }
-
-        jphmd3 = new JPanel(new GridLayout(3,1));
-        //把两个按钮加到jphmd3中
-        jphmd3.add(jphmd_jb1);
-        jphmd3.add(jphmd_jb2);
-        jphmd3.add(jphmd_jb3);
-
-
-        jsp3 = new JScrollPane(jphmd2);
-
-        //将所有组件加到最大的jpmsr1中去（对jpmsr1初始化）
-        jphmd1.add(jphmd3,"North");
-        jphmd1.add(jsp3,"Center");
-
+        /*处理jb_qun群聊按钮*/
+        jb_qun = new JButton("群聊");
 
 
         //添加到JFrame上
@@ -140,7 +108,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         this.setLayout(cl);
         this.add(jphy1,"1");
         this.add(jpmsr1,"2");
-        this.add(jphmd1,"3");
+        this.add(jb_qun,"3");
 
         this.setVisible(true);
         this.setSize(200,400);
@@ -149,14 +117,16 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
     }
 
     public void actionPerformed(ActionEvent e){
-        if(e.getSource()==jphy_jb2||e.getSource()==jphmd_jb2){
+        if(e.getSource()==jphy_jb2){
             cl.show(this.getContentPane(),"2");
         }
-        else if(e.getSource()==jpmsr_jb1||e.getSource()==jphmd_jb1){
+        else if(e.getSource()==jpmsr_jb1){
             cl.show(this.getContentPane(),"1");
         }
         else if(e.getSource()==jphy_jb3||e.getSource()==jpmsr_jb3){
-            cl.show(this.getContentPane(),"3");
+            //新建一个群聊窗口
+            System.out.println("你将进行群聊！");
+            groupChat gc = new groupChat();
         }
     }
 
@@ -208,12 +178,6 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
             }catch (Exception e){
                 e.printStackTrace();
             }
-            //尝试对黑名单列表进行更新（有待修改，需要加上用户名的基数）
-            try {
-                jlbs3[Integer.parseInt(online_friends[i]) - 1].setEnabled(true);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }
     }
 
@@ -231,13 +195,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
         }
         //尝试对好友列表进行更新（有待修改，需要加上用户名的基数）
         try {
-            jlbs3[Integer.parseInt(offline_friend)-1].setEnabled(false);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        //尝试对黑名单列表进行更新（有待修改，需要加上用户名的基数）
-        try {
-            jlbs3[Integer.parseInt(offline_friend)-1].setEnabled(false);
+            jlbs2[Integer.parseInt(offline_friend)-1].setEnabled(false);
         }catch (Exception e){
             e.printStackTrace();
         }
