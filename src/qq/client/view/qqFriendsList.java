@@ -78,7 +78,7 @@ public class qqFriendsList extends JFrame implements ActionListener,MouseListene
 
         //假设有50个好友
         jpmsr2 = new JPanel((new GridLayout(50,1,4,4)));
-        //给jpmsr2初始化20个好友
+        //给jpmsr2初始化50个好友
         jlbs2 = new JLabel[50];
         for(int i = 0;i < jlbs2.length;i++){
             jlbs2[i] = new JLabel(i+1+"",new ImageIcon("image/mine.jpg"),JLabel.LEFT);
